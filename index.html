@@ -1,349 +1,146 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AlphaDrop | Zenith Picks - L'Essentiel Quotidien</title>
-    <style>
-        /* ==================== STYLES GÉNÉRAUX ==================== */
-        body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; background-color: #f4f4f9; }
-        header { background-color: #333; color: white; padding: 15px 20px; text-align: center; }
-        h1 { margin: 0; }
-        .container { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
-        h2 { text-align: center; color: #333; margin-top: 40px; }
-
-        /* ==================== LISTE DE PRODUITS ==================== */
-        .product-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 30px; }
-        .product-card { background-color: white; border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: transform 0.2s; }
-        .product-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        
-        /* Styles pour l'image (Vraie balise IMG) */
-        .product-card img { 
-            width: 100%; 
-            height: 200px; 
-            object-fit: cover; 
-            border-radius: 4px; 
-            margin-bottom: 10px;
-            /* Style pour le placeholder tant que l'image n'est pas chargée */
-            background-color: #ecf0f1; 
-            border: 1px dashed #bdc3c7;
-        }
-
-        .product-card h3 { font-size: 1.2em; margin: 10px 0; }
-        .product-card p.description { color: #555; font-size: 0.9em; min-height: 40px; }
-        .product-card p.price { color: #e74c3c; font-weight: bold; font-size: 1.4em; margin-bottom: 15px; }
-        
-        .buy-btn { background-color: #2ecc71; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; text-transform: uppercase; font-weight: bold; transition: background-color 0.3s; }
-        .buy-btn:hover { background-color: #27ae60; }
-        
-        /* ==================== FLUX DE COMMANDE (Panier / Formulaire) ==================== */
-        #cart-section, #client-info-section, #whatsapp-payment-section {
-            background-color: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-top: 40px; border-left: 5px solid #3498db;
-            /* Initiallement cachées */
-            display: none; 
-        }
-        /* La classe 'active' est ajoutée par JavaScript pour afficher */
-        #cart-section.active, #client-info-section.active, #whatsapp-payment-section.active { display: block; }
-
-        .cart-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed #eee; }
-        .cart-item:last-child { border-bottom: none; }
-        
-        /* Styles pour le Formulaire */
-        .form-group { margin-bottom: 15px; text-align: left; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
-        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        
-        .whatsapp-btn { background-color: #25D366; color: white; padding: 15px 30px; border: none; border-radius: 5px; font-size: 1.2em; cursor: pointer; display: inline-block; text-decoration: none; margin-top: 20px;}
-    </style>
+<meta charset="UTF-8">
+<title>YAZIO-like Meal Tracker</title>
+<style>
+body{font-family:Arial;background:#f2f4f7;margin:0;padding:15px}
+header{background:#4CAF50;color:white;padding:15px;text-align:center}
+.card{background:white;padding:15px;margin-bottom:15px;border-radius:10px}
+input,select,button{width:100%;padding:8px;margin:5px 0}
+button{background:#4CAF50;color:white;border:none;border-radius:5px}
+.meal{display:flex;align-items:center;border-bottom:1px solid #eee;padding:5px 0}
+.meal img{width:50px;height:50px;object-fit:cover;border-radius:6px;margin-right:10px}
+.progress{background:#eee;border-radius:10px;overflow:hidden;height:18px}
+.progress div{background:#4CAF50;height:100%;text-align:center;color:white;font-size:12px}
+.ai{background:#e8f5e9;padding:10px;border-radius:8px}
+.small{font-size:13px;color:#555}
+</style>
 </head>
 <body>
 
-    <header>
-        <h1>AlphaDrop / Zenith Picks</h1>
-        <p>Achetez Futé, Vivez Mieux. Le meilleur de l'e-commerce.</p>
-    </header>
+<header>
+<h2>🍽️ My Nutrition (YAZIO-style)</h2>
+<p id="goalText"></p>
+</header>
 
-    <div class="container">
-        <h2>🛍️ Nos 20 Produits Tendances</h2>
-        
-        <div class="product-list">
-            
-            <div class="product-card">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiz15mrNlXI0a23cTClHisN86-4dpgvEpCJmsWv-p-qzBeesq4zjSrL6Iy3y6HNiB9xjUvlhwW12Khxh0W7g6IICI0PYPUdzwbtIxH_Dn7DZzEEnNDL-uxJ1mhDRmKnHJLjudU6orEsxUZoI_aQTZlv5Vs7s3wAvMKHv48Fee5lCsY7avqlEbOpU4U62KA/s320/IMG_0715.jpeg" alt="Diffuseur d'Huiles Essentielles">
-                <h3>Diffuseur d'Huiles Essentielles USB</h3>
-                <p class="description">Gadget pour une ambiance relaxante et purifiée.</p>
-                <p class="price">25,99€</p>
-                <button class="buy-btn" data-product-name="Diffuseur USB" data-price="25.99" onclick="goToCart(this)">Acheter</button> 
-            </div>
+<div class="card">
+<h3>Profil</h3>
+<input id="age" placeholder="Âge">
+<input id="weight" placeholder="Poids (kg)">
+<input id="height" placeholder="Taille (cm)">
+<select id="goal">
+<option value="maintain">Maintien</option>
+<option value="bulk">Prise de masse</option>
+<option value="cut">Sèche</option>
+</select>
+<button onclick="saveProfile()">Enregistrer</button>
+</div>
 
-            <div class="product-card">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhrPSZILuAFDtIrdhLXDqyIbNfpXkfBDssia_vrswxxG12ZbQefjIsj1XJrDoYeZ7eu9t0tUdhky4sVsbGUA9oVXuJcEYNa840DQm6auaAQrB3b3JemR1MrAveJU78t2fg2TsmzhmVZwu4-pVvEZPNendSlTYndqQ7R2J9UVeknDeirQxNzG8WWI0llrFE/s200/IMG_0716.jpeg" alt="Brosse Nettoyante Visage Électrique">
-                <h3>Brosse Nettoyante pour Visage Électrique</h3>
-                <p class="description">Nettoyage en profondeur pour une peau éclatante.</p>
-                <p class="price">19,99€</p>
-                <button class="buy-btn" data-product-name="Brosse Visage Électrique" data-price="19.99" onclick="goToCart(this)">Acheter</button>
-            </div>
-            
-            <div class="product-card">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh1e-_PsxewRZQO0RKI_kvWGJkMV9HqqogeivjSeVhT7YSpLw9C0oQroqjxF-ZC6lw7YaaR1fq73q2bdB-8hv7R4FgRszUepXR1gmgSbOhusubr4xbugkFkGr_WFvkhbf8UxzpuyL9YCG1cAjCli1HiEUpY38MlNJ0nZHC_trPJoczeWS2iCuW0BY3du68/s1284/IMG_0717.jpeg" alt="Support Téléphone Voiture Magnétique">
-                <h3>Support Téléphone Voiture Magnétique</h3>
-                <p class="description">Sécurité et commodité pour votre navigation.</p>
-                <p class="price">14,99€</p>
-                <button class="buy-btn" data-product-name="Support Téléphone Voiture" data-price="14.99" onclick="goToCart(this)">Acheter</button>
-            </div>
+<div class="card">
+<h3>Ajouter un repas</h3>
+<select id="type">
+<option>Petit-déjeuner</option>
+<option>Déjeuner</option>
+<option>Dîner</option>
+<option>Snack</option>
+</select>
+<input id="food" placeholder="Aliment">
+<input id="cal" placeholder="Calories">
+<input id="prot" placeholder="Protéines (g)">
+<input type="file" id="photo">
+<button onclick="addMeal()">Ajouter</button>
+</div>
 
-            <div class="product-card">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi4zWQZBMaZ_k2jHFBvfmP9hIhDO6cYhMHYgVSTipPqD0DPSByvP5Up-dXQXoawK30FqhTKhxYlLjT7fHP25DHLdqnjdKVuvIm72radnhiTtfU8U5GnCEw2auuDh6hTxd8NSekWQDhjNblTwCUYeWLEvEX97bGs4hGJKPqbTflsGWrxHlHXXx1pWPmNOA4/s320/IMG_0718.jpeg" alt="Mini Projecteur Portable HD">
-                <h3>Mini Projecteur Portable HD</h3>
-                <p class="description">Cinéma maison compact, idéal pour les soirées films.</p>
-                <p class="price">59,99€</p>
-                <button class="buy-btn" data-product-name="Mini Projecteur Portable" data-price="59.99" onclick="goToCart(this)">Acheter</button>
-            </div>
-            
-            <div class="product-card">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgphKpS4iEZJijm6L7IEGEzJuWcqBIpNmiMWs1pXBq7lqJeY-0Rt8zAqCcMcrDUSlTUXPlo7DYUE7FfbHHgvjyWF2TJXMjZPJPvtmRw4A6Q9wMtALwc76XjES5OY1bDbw0uDc1sup9c1ThrxoW987hL2DY2CMizE2Ddeh7OzP25NRxfDmz3UaIhyphenhyphenvjS0K8/s320/IMG_0719.jpeg" alt="Écouteurs sans fil Bluetooth 5.0">
-                <h3>Écouteurs sans fil Bluetooth 5.0</h3>
-                <p class="description">Son clair et autonomie longue durée, pour le sport et le voyage.</p>
-                <p class="price">25,00€</p>
-                <button class="buy-btn" data-product-name="Écouteurs Bluetooth" data-price="25.00" onclick="goToCart(this)">Acheter</button>
-            </div>
+<div class="card">
+<h3>Calories aujourd’hui</h3>
+<div class="progress"><div id="bar">0%</div></div>
+<p class="small"><span id="total">0</span> / <span id="target">0</span> kcal</p>
+</div>
 
-            <div class="product-card">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgrn_OBhVn-rDVDstD93Kx8ijFfIvqkuyByoFH2Ru3Fh0559u3HildOq_yMvguPovfalf6o-vY9siwg95fjETj-uZqI7X7IV4aa4Kgm0yQAVx2-YWpIQ58z9Vj8HwQp9QRY1qoxyf9Yaa9C5H-giaGJYEOswiMaLn-aVVw2qeJDIZPQ0mm6aDr0g-x3f4k/s320/IMG_0721.jpeg" alt="Coupe-légumes Multifonction 12-en-1">
-                <h3>Coupe-légumes Multifonction 12-en-1</h3>
-                <p class="description">Gain de temps en cuisine, pour préparer tous vos plats.</p>
-                <p class="price">22,50€</p>
-                <button class="buy-btn" data-product-name="Coupe-légumes" data-price="22.50" onclick="goToCart(this)">Acheter</button>
-            </div>
+<div class="card">
+<h3>Repas</h3>
+<div id="meals"></div>
+</div>
 
-            <div class="product-card">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjj-VCNgzia-P09cE8f496Vp2ZawR2qIWq6xneaqKyg-onk8lmyJ1vME-D-beKL_pGVGqHObNh64jUr410rvMQaea2Nal6s8jalu-W1c6mo4Uy-SFGn7y8ZBSFJu4rLooSyggLf_t-S83bR9mb60GfrekGkL5p4CWISQ5kXuRjDMED03cD0PO6-OSIazS8/s320/IMG_0722.jpeg" alt="Kit de 6 Organisateurs de Voyage">
-                <h3>Kit de 6 Organisateurs de Voyage</h3>
-                <p class="description">Maximisez l'espace dans votre valise, voyagez léger et organisé.</p>
-                <p class="price">18,99€</p>
-                <button class="buy-btn" data-product-name="Organisateurs de Voyage" data-price="18.99" onclick="goToCart(this)">Acheter</button>
-            </div>
+<div class="card ai">
+<h3>🤖 Coach IA</h3>
+<p id="aiText">Ajoute tes repas pour voir les conseils.</p>
+</div>
 
-            <div class="product-card">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj5D4k7n3Dg39yTyKfIIsdUH4ZcfQCWgxa_JhQ0pXSUZRXEOdFL6XDXYFW0AjGY3YDsv4BIME7_YsqOBvo7VuegkspX_3RkC-eEEDxq4VdbpV2s1-MAAX56pu0h3qN35GWn7KNBxzxeZ8e_PgXOfscMLXFhqyPw8AyGA8RPuelqh37Sq_u7MEu3abG-JcE/s320/IMG_0723.jpeg" alt="Masque de Sommeil en Soie Naturelle">
-                <h3>Masque de Sommeil en Soie Naturelle</h3>
-                <p class="description">Pour un sommeil réparateur, bloque la lumière en douceur.</p>
-                <p class="price">15,00€</p>
-                <button class="buy-btn" data-product-name="Masque Sommeil Soie" data-price="15.00" onclick="goToCart(this)">Acheter</button>
-            </div>
+<script>
+let meals = JSON.parse(localStorage.getItem("meals")||"[]");
+let profile = JSON.parse(localStorage.getItem("profile")||"{}");
 
-            <div class="product-card">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg6-0mwSXdoxXLsW_WeFcaX6exLm4pcVfO_4Ut0QvTUniIyksg4f1flkPPu5O_0UOtzywdgO-kZdKQHHfl-U-eJtdfbj4V4VofrONYAjLtSt-Ql0DlEwyDKbnjy6ZcBl9J3l8zP4eaBme2RRNn7uTaaMTh7lulL_PzcGkp5g6lMdVyUggRhzjytdRDmN3s/s1284/IMG_0724.jpeg" alt="Brosse Anti-Poils Réutilisable">
-                <h3>Brosse Anti-Poils Réutilisable pour Vêtements</h3>
-                <p class="description">Éliminez facilement les poils d'animaux, sans gaspillage.</p>
-                <p class="price">17,50€</p>
-                <button class="buy-btn" data-product-name="Brosse Anti-Poils" data-price="17.50" onclick="goToCart(this)">Acheter</button>
-            </div>
+function saveProfile(){
+profile={
+age:+age.value,weight:+weight.value,height:+height.value,goal:goal.value
+};
+localStorage.setItem("profile",JSON.stringify(profile));
+alert("Profil enregistré");
+render();
+}
 
-            <div class="product-card">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg4tBxtSu0Ip3N22OD2suMQoiCc7ervm9Xc-_QGVEeMckb6BBAB62ix4DguEBH2pdLztAzJzVOar8OUbCf3qcX0LCNoMdI8-03hcxzTn1Bv-e1xtWCe63KCScKniSWxLKU9iBYYJ03Pi6RXeFr1gvdI_Eq0DcLCsLgUD7wFMI7HhyphenhyphencUZlRsEuuV2f3i1SU/s1289/IMG_0725.jpeg" alt="Ruban LED RGB Connecté">
-                <h3>Ruban LED RGB Connecté (5 mètres)</h3>
-                <p class="description">Créez l'ambiance parfaite avec des couleurs personnalisables.</p>
-                <p class="price">20,99€</p>
-                <button class="buy-btn" data-product-name="Ruban LED RGB" data-price="20.99" onclick="goToCart(this)">Acheter</button>
-            </div>
+function calcTarget(){
+if(!profile.weight) return 0;
+let bmr = 10*profile.weight + 6.25*profile.height - 5*profile.age + 5;
+if(profile.goal==="bulk") return Math.round(bmr+300);
+if(profile.goal==="cut") return Math.round(bmr-400);
+return Math.round(bmr);
+}
 
-            <div class="product-card">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg1TRn8VOs_3cdc1Wj_hvV8lMF-tlVn8t2HJNTIp8Bb24Avs_6EFhG1aMj00ZEZjvUKbjse05wZFwD2CcmDkCD2wlQkP38nZYsCx7Xz_017fj04kfAnb92HkGAFUAXDFes_Ka4Ynnb002D1ITNZo4pInBUjgvkkaeAm3Y09iXsOVahYlyyLD-nXAP5zodI/s1286/IMG_0726.jpeg" alt="Stylo de Blanchiment Dentaire Express">
-                <h3>Stylo de Blanchiment Dentaire Express</h3>
-                <p class="description">Retrouvez un sourire éclatant facilement et rapidement à la maison.</p>
-                <p class="price">16,99€</p>
-                <button class="buy-btn" data-product-name="Stylo Blanchiment Dentaire" data-price="16.99" onclick="goToCart(this)">Acheter</button>
-            </div>
+function addMeal(){
+const f=document.getElementById("photo");
+if(f.files.length){
+let r=new FileReader();
+r.onload=e=>saveMeal(e.target.result);
+r.readAsDataURL(f.files[0]);
+}else saveMeal(null);
+}
 
-            <div class="product-card">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhld02guzXFlw2Lr27o6UdBCGo7s8dU8vsvC6Kft0DyBHck62DFS5xe_aEEJqCaHSwIyTi0mTskSMF-n0sqGAEjCL48CPcEJJHlSzYkAwqEGkdrtHX9VPjKL_a9RoKfvSv6b-EwG80bg23VUNzUwNP3IHH9Weqn9JP61OD8T5YGweF44dfj0cGPZ093mPU/s1288/IMG_0727.jpeg" alt="Chargeur sans fil Rapide à Induction">
-                <h3>Chargeur sans fil Rapide à Induction</h3>
-                <p class="description">Chargez votre téléphone sans câble, rapide et élégant.</p>
-                <p class="price">24,00€</p>
-                <button class="buy-btn" data-product-name="Chargeur sans fil" data-price="24.00" onclick="goToCart(this)">Acheter</button>
-            </div>
+function saveMeal(img){
+meals.push({
+date:new Date().toDateString(),
+type:type.value,
+food:food.value,
+cal:+cal.value,
+prot:+prot.value,
+img
+});
+localStorage.setItem("meals",JSON.stringify(meals));
+render();
+}
 
-            <div class="product-card">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjRuwbSJDxxFPG14DlfDmB7UGJPnuASb3FOq7G7jjgbgZT-txwdcD_y99eUXXxy1ePSfxSBWskWUk_46GCqoQiID4YBPazaisF3NdXgwLPXmK8HYUXEuEB8hiSGSFHwmRjQDl5Rl2Urseg5A-W8JCW37mCO_h-mDsEZCwX1PZNZywYGRTD5W33xATVRu6I/s1293/IMG_0728.jpeg" alt="Tapis de Souris Ergonomique">
-                <h3>Tapis de Souris Ergonomique</h3>
-                <p class="description">Confort maximal pour le bureau et les longues sessions de jeu.</p>
-                <p class="price">15,50€</p>
-                <button class="buy-btn" data-product-name="Tapis de Souris Ergo" data-price="15.50" onclick="goToCart(this)">Acheter</button>
-            </div>
+function render(){
+let today=new Date().toDateString();
+let todayMeals=meals.filter(m=>m.date===today);
+let total=todayMeals.reduce((s,m)=>s+m.cal,0);
+let target=calcTarget();
 
-            <div class="product-card">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj-ZIBsIpEuVzUVX73S2n7VVPAXGkDCtout3Kil2tNBfAwRyxN5I964ADffrJmUVA89d13MWzPN_PazimzS7MLyegfkMY5S_ijQbrp8_0tpPfK9NXgG7eSfrPYDG26ENLyCU3q2tavgZ7BoHUCJBXixE4S-tyn1AGKneB_OKVitMO8QfkwXRKcYaOtraCE/s1284/IMG_0729.jpeg" alt="Gants Exfoliants Double Face">
-                <h3>Gants Exfoliants Double Face (Lot de 2)</h3>
-                <p class="description">Pour un gommage efficace et une peau douce et renouvelée.</p>
-                <p class="price">13,00€</p>
-                <button class="buy-btn" data-product-name="Gants Exfoliants" data-price="13.00" onclick="goToCart(this)">Acheter</button>
-            </div>
+document.getElementById("total").innerText=total;
+document.getElementById("target").innerText=target;
+let pct=target?Math.min(100,Math.round(total/target*100)):0;
+bar.style.width=pct+"%"; bar.innerText=pct+"%";
 
-            <div class="product-card">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiNbA1THeQMpSuPGulMPT0eII59ca6KLtbMRkMsrjSUUoBgO7oQrPt7jnySilonfcsOypjcnjSXJFybX0BO_S3SdeWSd4sNKWisC_NgW2gMYKRAUGgFyhOKVgIsi5gv2qYiQd5vsqJHO4thlq2ftA7pp55CUdMTXDyAjQtAgl21nIPFvKbaWHO0oPGjLEo/s1296/IMG_0731.jpeg" alt="Thermomètre Numérique Sans Contact">
-                <h3>Thermomètre Numérique Sans Contact Médical</h3>
-                <p class="description">Prise de température rapide et hygiénique pour toute la famille.</p>
-                <p class="price">30,00€</p>
-                <button class="buy-btn" data-product-name="Thermomètre sans Contact" data-price="30.00" onclick="goToCart(this)">Acheter</button>
-            </div>
+mealsDiv.innerHTML="";
+todayMeals.forEach(m=>{
+mealsDiv.innerHTML+=`
+<div class="meal">
+${m.img?`<img src="${m.img}">`:``}
+<div><b>${m.type}</b><br>${m.food} – ${m.cal} kcal</div>
+</div>`;
+});
 
-            <div class="product-card">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh1uOPShFC18vcTVpv183lwJoAXnZQoBVL9ggGBGwx8SD8dTWi3FLyuqogHrF6w_4YbJFkzfHPittDw1hiR4WGLzZarlN4o9fsmI-8jVApPPMUAO-bO1si5Y7YL_EpYqsKvjPI6Z9wJMMoH4RpLkxQfbIlkBLQR97Rp983SEwdfCZN72aAwD5vPVjV11c0/s1284/IMG_0732.jpeg" alt="Kit de 12 Pinceaux de Maquillage">
-                <h3>Kit de 12 Pinceaux de Maquillage Pro</h3>
-                <p class="description">Tous les outils essentiels pour un maquillage réussi.</p>
-                <p class="price">20,99€</p>
-                <button class="buy-btn" data-product-name="Kit Pinceaux Maquillage" data-price="20.99" onclick="goToCart(this)">Acheter</button>
-            </div>
+aiText.innerText =
+total<target*0.8?"Tu peux encore manger 👍":
+total>target?"Tu dépasses ton objectif ⚠️":
+"Bon équilibre 👌";
 
-            <div class="product-card">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjvrha_YWG-BWy0ZTrSml_WY7G7Tg-MREFHs9gkwNbiaiBVbBIIb-qsMr4jIjccPDvqhG8gOTuX-RFBcxzyIGg5dLRlcq1RMAUuEF0n8_W3QI8CK8ARKnwPKyF4tl-280lJrJ-BEyArWQaInrfQ_6HwCOlTPvLII9klVfeiEjAqMdjGClAlpAIN-E5Xogc/s1310/IMG_0733.jpeg" alt="Organisateur de Câbles Adhésif">
-                <h3>Organisateur de Câbles Adhésif (Lot de 5)</h3>
-                <p class="description">Fini les câbles emmêlés, gardez votre espace de travail propre.</p>
-                <p class="price">14,00€</p>
-                <button class="buy-btn" data-product-name="Organisateur Câbles" data-price="14.00" onclick="goToCart(this)">Acheter</button>
-            </div>
+goalText.innerText=profile.goal?`Objectif : ${profile.goal}`:"";
+}
 
-            <div class="product-card">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgvRW17TutJrWsInZyKxAGrxFRRMjq_yBlvC89NbAPSOf8mHlmxmlxM704fHKBFvKs1u_RNd70rsPjZvj1jPr422A-BBQmimScnd3fp-Qb1ChSUCeb1Tp3KR0qQCTPwrLfZ9ct99R6nvGdxkOq7nTE_QCGOE0yL8rb9_Bq84CHx9ppBGWJ6LmDRjMmCn10/s1284/IMG_0734.jpeg" alt="Lunettes Anti-Lumière Bleue">
-                <h3>Lunettes Anti-Lumière Bleue (Unisexe)</h3>
-                <p class="description">Protégez vos yeux de la fatigue numérique devant les écrans.</p>
-                <p class="price">18,50€</p>
-                <button class="buy-btn" data-product-name="Lunettes Anti-Bleue" data-price="18.50" onclick="goToCart(this)">Acheter</button>
-            </div>
-
-            <div class="product-card">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhGSbE7WfCfq2GMS2IN0qjWKluAErQ8-KcniqvG4OT8Cum3dfy44D4PtImSIOUacaorpPGYdarezT0R4xuTbodFDSUlP1h_qxlSYgnEUAEhGgEC7vr3CLgMMlajminaudvJ0yGOLSsjoLx3-o9VctWbfartQI-J-lwxVnspeiDzL7S-Rxhq070DKEp9KYY/s1284/IMG_0736.jpeg" alt="Bouteille Isotherme en Acier Inoxydable">
-                <h3>Bouteille d'eau Isotherme (500 ml)</h3>
-                <p class="description">Garde vos boissons chaudes 12h et froides 24h.</p>
-                <p class="price">21,99€</p>
-                <button class="buy-btn" data-product-name="Bouteille Isotherme" data-price="21.99" onclick="goToCart(this)">Acheter</button>
-            </div>
-
-            <div class="product-card">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg4OtpezjUc8p_aw3_yAXTRYmAaOlgJk4D8nzIQ0nPAHo05i-9IxUMSQ8I5lx4x0XOnMoDFuGpUpiyjY8jGHNhbr8ln-ZZw1_NtPXgpkGezafUAb_PvvTCkQOmUHgr5NxiS2MFfXx5eXZ3VQ8k_cXk6wr_ubJpC3Y1lGU5BFK7p7miL3-Qyvj9DLTHbjIo/s1293/IMG_0737.jpeg" alt="Gant de Lavage de Voiture en Microfibre">
-                <h3>Gant de Lavage de Voiture Microfibre</h3>
-                <p class="description">Lavage sans rayure et efficace pour une voiture impeccable.</p>
-                <p class="price">13,50€</p>
-                <button class="buy-btn" data-product-name="Gant Lavage Voiture" data-price="13.50" onclick="goToCart(this)">Acheter</button>
-            </div>
-            
-        </div>
-        
-        <hr style="margin-top: 50px;">
-
-        <section id="cart-section">
-            <h2>🛒 Étape 1 : Votre Panier</h2>
-            <div id="cart-content">
-                <p><strong>Produit sélectionné :</strong></p>
-                <div class="cart-item">
-                    <span id="cart-product-name" style="font-weight: bold;"></span>
-                    <span id="cart-product-price" style="font-weight: bold;"></span>
-                </div>
-                <div class="cart-item" style="font-weight: bold; border-top: 2px solid #ccc; margin-top: 10px;">
-                    <span>Total de la commande :</span>
-                    <span id="cart-total" style="color: #e74c3c;"></span>
-                </div>
-            </div>
-            <button class="buy-btn" style="margin-top: 20px;" onclick="goToClientInfo()">Continuer la Commande</button>
-        </section>
-
-        <section id="client-info-section">
-            <h2>👤 Étape 2 : Vos Coordonnées de Livraison</h2>
-            <form id="client-form">
-                <p>Veuillez remplir ce formulaire **avant** d'aller au paiement par WhatsApp.</p>
-                <div class="form-group">
-                    <label for="name">Nom Complet :</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="address">Adresse Complète :</label>
-                    <input type="text" id="address" name="address" required>
-                </div>
-                <div class="form-group">
-                    <label for="phone">Numéro de Téléphone (Tél) :</label>
-                    <input type="tel" id="phone" name="phone" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email (pour confirmation) :</label>
-                    <input type="email" id="email" name="email" required>
-                    <small>L'email de confirmation sera envoyé à cette adresse (copie à saadelhaoul0@gmail.com).</small>
-                </div>
-                <button type="button" class="buy-btn" onclick="goToPaymentInstructions()">Valider mes Coordonnées et Passer au Paiement</button>
-            </form>
-        </section>
-
-        <section id="whatsapp-payment-section">
-            <h2>📱 Étape 3 : Paiement par WhatsApp</h2>
-            <p><strong>Votre commande est prête.</strong> Pour finaliser l'achat, cliquez sur le bouton WhatsApp ci-dessous. Le message sera pré-rempli avec les détails de votre commande.</p>
-            
-            <p style="font-size: 1.1em; font-weight: bold; color: #e74c3c;">Total Final à payer : <span id="final-total"></span></p>
-
-            <p style="font-size: 1.1em; font-weight: bold; color: #3498db;">Nous vous enverrons les instructions de paiement (virement, espèces) sur le chat WhatsApp.</p>
-
-            <a id="whatsapp-link" href="#" target="_blank" class="whatsapp-btn">
-               Contacter AlphaDrop / Zenith Picks (0665290743)
-            </a>
-            
-            <p style="margin-top: 20px; font-style: italic;">Votre commande sera traitée dès confirmation du paiement via WhatsApp.</p>
-        </section>
-
-    </div>
-
-    <script>
-        let currentProduct = { name: '', price: 0 };
-
-        function hideAllSections() {
-            document.getElementById('cart-section').classList.remove('active');
-            document.getElementById('client-info-section').classList.remove('active');
-            document.getElementById('whatsapp-payment-section').classList.remove('active');
-        }
-
-        // 1. Clic sur "Acheter" (Met à jour le panier)
-        function goToCart(button) {
-            currentProduct.name = button.getAttribute('data-product-name');
-            currentProduct.price = parseFloat(button.getAttribute('data-price')).toFixed(2);
-            
-            // Met à jour l'affichage du panier
-            document.getElementById('cart-product-name').textContent = currentProduct.name + ' (x1)';
-            document.getElementById('cart-product-price').textContent = currentProduct.price + '€';
-            document.getElementById('cart-total').textContent = currentProduct.price + '€';
-
-            hideAllSections();
-            document.getElementById('cart-section').classList.add('active');
-            document.getElementById('cart-section').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // 2. Clic sur "Continuer la Commande"
-        function goToClientInfo() {
-            hideAllSections();
-            document.getElementById('client-info-section').classList.add('active');
-            document.getElementById('client-info-section').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // 3. Clic sur "Valider mes Coordonnées et Payer"
-        function goToPaymentInstructions() {
-            const form = document.getElementById('client-form');
-            if (form.checkValidity()) {
-                const clientName = document.getElementById('name').value;
-                const whatsappMessage = `Bonjour, je souhaite finaliser ma commande AlphaDrop. Mon nom est ${clientName}. J'ai commandé : ${currentProduct.name} pour un total de ${currentProduct.price}€. Merci de m'envoyer les instructions de paiement.`;
-                
-                const encodedMessage = encodeURIComponent(whatsappMessage);
-                const whatsappURL = `https://wa.me/212665290743?text=${encodedMessage}`;
-
-                // Met à jour la section de paiement
-                document.getElementById('final-total').textContent = currentProduct.price + '€';
-                document.getElementById('whatsapp-link').setAttribute('href', whatsappURL);
-
-                hideAllSections();
-                document.getElementById('whatsapp-payment-section').classList.add('active');
-                document.getElementById('whatsapp-payment-section').scrollIntoView({ behavior: 'smooth' });
-            } else {
-                form.reportValidity(); // Affiche les messages d'erreur HTML5
-            }
-        }
-    </script>
+render();
+</script>
 
 </body>
 </html>
-
