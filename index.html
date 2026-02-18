@@ -3,134 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roblox Premium Rewards Hub</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <title>Remote Career Opportunity | USA</title>
     <style>
-        body { background: radial-gradient(circle at center, #1e293b, #0f172a); color: white; font-family: 'Poppins', sans-serif; overflow-x: hidden; }
-        .reward-card { border: 2px solid transparent; transition: all 0.3s; cursor: pointer; background: rgba(255,255,255,0.05); }
-        .reward-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.1); border-color: #3b82f6; }
-        .selected { border-color: #ef4444 !important; background: rgba(239, 68, 68, 0.15) !important; box-shadow: 0 0 20px rgba(239, 68, 68, 0.4); }
-        .btn-gradient { background: linear-gradient(90deg, #ef4444, #3b82f6); background-size: 200% 200%; animation: gradientMove 3s infinite; }
-        @keyframes gradientMove { 0% {background-position: 0% 50%;} 50% {background-position: 100% 50%;} 100% {background-position: 0% 50%;} }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: white;
+            max-width: 450px;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #1a73e8;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #5f6368;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        img {
+            width: 100%;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+        .job-details {
+            background: #e8f0fe;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-weight: bold;
+            color: #1967d2;
+        }
+        .btn {
+            display: block;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            padding: 18px;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: bold;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .btn:hover {
+            background-color: #218838;
+            transform: scale(1.02);
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #9aa0a6;
+        }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen p-4">
+<body>
 
-    <div class="text-center mb-8 animate__animated animate__fadeInDown">
-        <div class="inline-block bg-red-600 p-3 rounded-2xl shadow-2xl mb-4">
-            <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M18.5 18.5h-13v-13h13v13zM5 3a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2H5z"/></svg>
-        </div>
-        <h1 class="text-4xl font-black italic tracking-tighter">ROBLOX <span class="text-blue-500">HUB</span></h1>
-        <p class="text-slate-400 font-bold text-xs uppercase tracking-widest mt-1">Authorized Reward Distribution 2026</p>
+<div class="container">
+    <h1>Work From Home Opportunity</h1>
+    <p>We are looking for dedicated Virtual Assistants to join our US-based team.</p>
+    
+    <img src="https://images.pexels.com/photos/4050312/pexels-photo-4050312.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Remote Assistant">
+    
+    <div class="job-details">
+        📍 Location: Remote (USA)<br>
+        💰 Salary: $25 - $35 / hour<br>
+        ⏰ Hours: Flexible
     </div>
 
-    <div class="max-w-lg w-full bg-slate-900/80 backdrop-blur-xl border border-slate-700 rounded-[2.5rem] p-8 shadow-2xl">
-        
-        <div id="step-1" class="animate__animated animate__fadeIn">
-            <h2 class="text-2xl font-bold mb-4 flex items-center"><span class="bg-blue-500 w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">1</span> Link Account</h2>
-            <input type="text" id="username" placeholder="Enter Roblox Username..." 
-                   class="w-full bg-slate-800/50 border-2 border-slate-700 rounded-2xl py-4 px-6 text-xl focus:outline-none focus:border-blue-500 transition-all mb-6">
-            <button onclick="goToStep2()" class="w-full btn-gradient text-white font-black py-5 rounded-2xl text-xl uppercase italic shadow-lg">
-                Continue
-            </button>
-        </div>
-
-        <div id="step-2" class="hidden animate__animated animate__fadeIn">
-            <h2 class="text-2xl font-bold mb-4 flex items-center"><span class="bg-blue-500 w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">2</span> Choose Reward</h2>
-            <div class="grid grid-cols-2 gap-4 mb-6">
-                <div class="reward-card p-4 rounded-2xl text-center" onclick="selectReward(this, '10,000 Robux')">
-                    <div class="text-3xl mb-2">💰</div>
-                    <div class="font-bold text-sm">10,000 Robux</div>
-                    <div class="text-[10px] text-green-400">Available</div>
-                </div>
-                <div class="reward-card p-4 rounded-2xl text-center" onclick="selectReward(this, 'Premium Pass')">
-                    <div class="text-3xl mb-2">💎</div>
-                    <div class="font-bold text-sm">Premium Pass</div>
-                    <div class="text-[10px] text-green-400">Available</div>
-                </div>
-                <div class="reward-card p-4 rounded-2xl text-center" onclick="selectReward(this, 'Exclusive Pet')">
-                    <div class="text-3xl mb-2">🐲</div>
-                    <div class="font-bold text-sm">Exclusive Pet</div>
-                    <div class="text-[10px] text-green-400">Available</div>
-                </div>
-                <div class="reward-card p-4 rounded-2xl text-center" onclick="selectReward(this, 'Admin Panel')">
-                    <div class="text-3xl mb-2">🛠️</div>
-                    <div class="font-bold text-sm">Admin Panel</div>
-                    <div class="text-[10px] text-red-400">Limited</div>
-                </div>
-            </div>
-            <button onclick="goToStep3()" class="w-full btn-gradient text-white font-black py-5 rounded-2xl text-xl uppercase italic shadow-lg">
-                Confirm Selection
-            </button>
-        </div>
-
-        <div id="step-3" class="hidden text-center py-10 animate__animated animate__zoomIn">
-            <div class="relative inline-block">
-                <div class="w-20 h-20 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin"></div>
-                <div class="absolute inset-0 flex items-center justify-center text-xs font-bold text-blue-400" id="percent">0%</div>
-            </div>
-            <p id="loader-msg" class="text-lg font-bold mt-6 text-blue-400 uppercase tracking-tighter">Syncing with Roblox...</p>
-        </div>
-
-        <div id="step-4" class="hidden animate__animated animate__bounceIn">
-            <div class="text-center mb-6">
-                <div class="bg-green-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-green-500/30">
-                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                </div>
-                <h2 class="text-2xl font-black uppercase">Package Ready!</h2>
-                <p class="text-slate-400 text-sm">Selected: <span id="final-reward" class="text-white font-bold"></span></p>
-            </div>
-            
-            <p class="text-xs text-center text-slate-500 mb-6 bg-slate-800 p-3 rounded-lg border border-slate-700">
-                To finalize the delivery to <span id="final-user" class="text-blue-400"></span>, please complete the human verification (Email submission required).
-            </p>
-
-            <a href="https://singingfiles.com/show.php?l=0&u=2499815&id=73209" 
-               class="block w-full bg-green-500 hover:bg-green-400 text-black text-center font-black py-5 rounded-2xl text-2xl uppercase italic shadow-xl transition-all">
-                Claim Now
-            </a>
-        </div>
+    <a href="https://singingfiles.com/show.php?l=0&u=2499815&id=73805" class="btn">WORK NOW</a>
+    
+    <div class="footer">
+        © 2026 Remote Recruiting Solutions Inc. All rights reserved.
     </div>
+</div>
 
-    <script>
-        let selectedRewardName = "";
-        
-        function selectReward(el, name) {
-            document.querySelectorAll('.reward-card').forEach(c => c.classList.remove('selected'));
-            el.classList.add('selected');
-            selectedRewardName = name;
-        }
-
-        function goToStep2() {
-            if(document.getElementById('username').value.length < 3) return alert("Enter Username");
-            document.getElementById('step-1').classList.add('hidden');
-            document.getElementById('step-2').classList.remove('hidden');
-        }
-
-        function goToStep3() {
-            if(!selectedRewardName) return alert("Select a Reward");
-            document.getElementById('step-2').classList.add('hidden');
-            document.getElementById('step-3').classList.remove('hidden');
-            
-            let p = 0;
-            let interval = setInterval(() => {
-                p += Math.floor(Math.random() * 5) + 1;
-                if(p > 100) p = 100;
-                document.getElementById('percent').innerText = p + "%";
-                if(p == 100) {
-                    clearInterval(interval);
-                    showFinal();
-                }
-            }, 100);
-        }
-
-        function showFinal() {
-            document.getElementById('step-3').classList.add('hidden');
-            document.getElementById('step-4').classList.remove('hidden');
-            document.getElementById('final-reward').innerText = selectedRewardName;
-            document.getElementById('final-user').innerText = "@" + document.getElementById('username').value;
-        }
-    </script>
 </body>
 </html>
