@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boutique Flash - Commandes Express</title>
-    <!-- Lucide Icons pour des icônes épurées -->
+    <title>TEMU STYLE - Commande Express</title>
     <script src="https://cdn.jsdelivr.net/npm/lucide@0.321.0/dist/umd/lucide.min.js"></script>
     <style>
         :root {
@@ -14,7 +13,9 @@
             --whatsapp-hover: #20ba5a;
             --dark: #1e2229;
             --text-gray: #747d8c;
-            --light-bg: #f8f9fa;
+            --light-bg: #f5f6fa;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --hover-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
         }
 
         * {
@@ -31,19 +32,17 @@
             overflow-x: hidden;
         }
 
-        /* --- Animations --- */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes pulseBadge {
             0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.03); }
             100% { transform: scale(1); }
         }
 
-        /* --- Header --- */
         header {
             background-color: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -54,11 +53,11 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
         }
 
         .logo {
-            font-weight: 800;
+            font-weight: 900;
             font-size: 24px;
             letter-spacing: -0.5px;
             background: linear-gradient(135deg, var(--primary), #ff6b81);
@@ -69,12 +68,15 @@
         .cart-icon-container {
             position: relative;
             cursor: pointer;
-            padding: 5px;
-            transition: transform 0.2s ease;
+            padding: 8px;
+            border-radius: 50%;
+            background: #f1f2f6;
+            transition: all 0.3s ease;
         }
 
         .cart-icon-container:hover {
             transform: scale(1.1);
+            background: #e4e7eb;
         }
 
         .cart-count {
@@ -88,81 +90,63 @@
             font-size: 11px;
             font-weight: bold;
             border: 2px solid white;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
 
-        /* --- Hero Section --- */
         .hero {
-            background: linear-gradient(135deg, #2f3542, #1e2229);
+            background: linear-gradient(135deg, #1e2229, #2f3542);
             color: white;
             text-align: center;
             padding: 50px 20px;
             margin-bottom: 40px;
-            position: relative;
         }
 
         .hero h1 {
             font-size: 32px;
             font-weight: 800;
-            margin-bottom: 10px;
-        }
-
-        .hero p {
-            color: #a4b0be;
-            font-size: 16px;
+            margin-bottom: 12px;
         }
 
         .shipping-badge {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            background: rgba(255, 71, 87, 0.2);
-            color: var(--primary);
-            padding: 6px 16px;
+            gap: 8px;
+            background: rgba(255, 71, 87, 0.15);
+            color: #ff6b81;
+            padding: 8px 18px;
             border-radius: 30px;
             font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            border: 1px solid rgba(255, 71, 87, 0.3);
+            font-weight: 700;
+            margin-bottom: 20px;
             animation: pulseBadge 2s infinite ease-in-out;
         }
 
-        /* --- Grille Produits --- */
         .container {
-            max-width: 1200px;
+            max-width: 500px;
             margin: 0 auto;
-            padding: 0 20px 60px 20px;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            padding: 0 20px 80px 20px;
         }
 
         .product-card {
             background: white;
-            border-radius: 16px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
-            border: 1px solid rgba(0,0,0,0.03);
+            box-shadow: var(--card-shadow);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             flex-direction: column;
-            animation: fadeIn 0.6s ease-out both;
+            animation: fadeIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
 
         .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            box-shadow: var(--hover-shadow);
         }
 
         .product-image-box {
             width: 100%;
-            height: 320px;
-            background-color: #f1f2f6;
+            height: 400px;
             overflow: hidden;
-            position: relative;
+            background-color: #f1f2f6;
         }
 
         .product-img {
@@ -173,36 +157,32 @@
         }
 
         .product-card:hover .product-img {
-            transform: scale(1.06);
+            transform: scale(1.05);
         }
 
         .product-info {
             padding: 25px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
         }
 
         .product-title {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 700;
             line-height: 1.4;
             margin-bottom: 12px;
-            min-height: 50px;
         }
 
         .product-price {
-            font-size: 24px;
+            font-size: 28px;
             color: var(--primary);
             font-weight: 800;
             margin-bottom: 20px;
             display: flex;
             align-items: baseline;
-            gap: 5px;
+            gap: 8px;
         }
 
         .product-price span {
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 500;
             color: var(--text-gray);
             text-decoration: line-through;
@@ -212,11 +192,11 @@
             background-color: var(--dark);
             color: white;
             border: none;
-            padding: 14px;
-            border-radius: 10px;
+            padding: 16px;
+            border-radius: 12px;
             cursor: pointer;
             font-weight: 700;
-            font-size: 15px;
+            font-size: 16px;
             transition: all 0.2s ease;
             width: 100%;
             display: flex;
@@ -227,23 +207,18 @@
 
         .add-to-cart-btn:hover {
             background-color: var(--primary);
-            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 71, 87, 0.3);
         }
 
-        .add-to-cart-btn:active {
-            transform: translateY(0);
-        }
-
-        /* --- Panier Coulissant (Drawer) --- */
         .cart-drawer {
             position: fixed;
             top: 0;
             right: -100%;
             width: 100%;
-            max-width: 420px;
+            max-width: 440px;
             height: 100%;
             background: white;
-            box-shadow: -10px 0 40px rgba(0,0,0,0.15);
+            box-shadow: -10px 0 40px rgba(0,0,0,0.12);
             z-index: 200;
             transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
@@ -271,17 +246,12 @@
             cursor: pointer;
             background: #f1f2f6;
             border: none;
-            width: 36px;
-            height: 36px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background 0.2s;
-        }
-
-        .close-cart:hover {
-            background: #e4e7eb;
         }
 
         .cart-items {
@@ -294,16 +264,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
             padding-bottom: 20px;
             border-bottom: 1px solid #f1f2f6;
-            animation: fadeIn 0.3s ease;
         }
 
         .cart-item-details h4 {
             font-size: 15px;
             font-weight: 600;
-            margin-bottom: 5px;
         }
 
         .cart-item-details span {
@@ -317,12 +284,6 @@
             background: none;
             border: none;
             padding: 8px;
-            border-radius: 8px;
-            transition: background 0.2s;
-        }
-
-        .remove-item:hover {
-            background: #ffe0e3;
         }
 
         .cart-footer {
@@ -344,7 +305,7 @@
             color: white;
             border: none;
             padding: 16px;
-            border-radius: 12px;
+            border-radius: 14px;
             cursor: pointer;
             font-weight: 700;
             width: 100%;
@@ -353,17 +314,12 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.25);
-            transition: all 0.2s ease;
         }
 
         .checkout-btn:hover {
             background-color: var(--whatsapp-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35);
         }
 
-        /* --- Overlay Background --- */
         .overlay {
             position: fixed;
             top: 0;
@@ -382,105 +338,51 @@
             opacity: 1;
             visibility: visible;
         }
-
-        /* --- Responsive Mobile --- */
-        @media (max-width: 768px) {
-            .products-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            .hero {
-                padding: 35px 15px;
-            }
-            .hero h1 {
-                font-size: 26px;
-            }
-        }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
     <header>
-        <div class="logo">TEMU EXPRESS</div>
+        <div class="logo">TEMU STYLE</div>
         <div class="cart-icon-container" onclick="toggleCart(true)">
-            <i data-lucide="shopping-bag" style="width: 26px; height: 26px;"></i>
+            <i data-lucide="shopping-bag" style="width: 24px; height: 24px;"></i>
             <span class="cart-count" id="cart-count">0</span>
         </div>
     </header>
 
-    <!-- Section Hero Réassurance -->
     <div class="hero">
         <div class="shipping-badge">
             <i data-lucide="truck" style="width: 16px; height: 16px;"></i> Livraison Gratuite Partout au Maroc
         </div>
-        <h1>Offres Flash d'Été ! ☀️</h1>
-        <p>Commandez en 1 clic. Paiement 100% Sécurisé à la livraison via WhatsApp.</p>
+        <h1>Offre Exclusive ✨</h1>
     </div>
 
-    <!-- Grille des produits -->
     <div class="container">
-        <div class="products-grid">
-            
-            <!-- Produit 1 (Ventilateur Blanc LED) -->
-            <div class="product-card" style="animation-delay: 0.1s;">
-                <div class="product-image-box">
-                    <img class="product-img" src="https://images.unsplash.com/photo-1622737133809-d95047b9e673?w=600" alt="Ventilateur LED">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Ventilateur de Poche Intelligent avec Affichage LED & Base</h3>
-                    <div class="product-price">129 DH <span>199 DH</span></div>
-                    <button class="add-to-cart-btn" onclick="addToCart('Ventilateur Poche LED Intelligent', 129)">
-                        <i data-lucide="shopping-cart" style="width: 18px; height: 18px;"></i> Ajouter au Panier
-                    </button>
-                </div>
+        <!-- Produit Unique -->
+        <div class="product-card">
+            <div class="product-image-box">
+                <img class="product-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjmdYaHbmiCRjuJB5oAODvf-k-YCfrRqIe66LVQex-RDnzCgrynSuo_AsPfL6z9Zwc64qcaigrMEgx1y7H4kgXLyKLfrjqw5wI6fq4V6j-mN_gA3d1h4PmtLb1HYFNqlJH04OXtfkjZdr7bWcfPDwa9dnVXX9oH_JCDRCap_-3QdVV-027lljJ4ix7Zg0Hv/s1286/IMG_1222.jpeg" alt="Ventilateur de Poche LED">
             </div>
-
-            <!-- Produit 2 (Mini Refroidisseur Tactile) -->
-            <div class="product-card" style="animation-delay: 0.2s;">
-                <div class="product-image-box">
-                    <img class="product-img" src="https://images.unsplash.com/photo-1585336139118-89c153132666?w=600" alt="Refroidisseur Tactile">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Mini Cooling Fan - Rafraîchisseur d'Air Tactile Multi-Gears</h3>
-                    <div class="product-price">249 DH <span>399 DH</span></div>
-                    <button class="add-to-cart-btn" onclick="addToCart('Mini Rafraîchisseur Air Tactile', 249)">
-                        <i data-lucide="shopping-cart" style="width: 18px; height: 18px;"></i> Ajouter au Panier
-                    </button>
-                </div>
+            <div class="product-info">
+                <h3 class="product-title">Ventilateur de Poche Rechargeable avec Support & Affichage LED Intelligent</h3>
+                <div class="product-price">159 DH <span>249 DH</span></div>
+                <button class="add-to-cart-btn" onclick="addToCart('Ventilateur Poche LED Premium', 159)">
+                    <i data-lucide="shopping-cart" style="width: 18px; height: 18px;"></i> Ajouter au Panier
+                </button>
             </div>
-
-            <!-- Produit 3 (Blender Portable) -->
-            <div class="product-card" style="animation-delay: 0.3s;">
-                <div class="product-image-box">
-                    <img class="product-img" src="https://images.unsplash.com/photo-1578643463396-0997cb5328c1?w=600" alt="Blender USB">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Mini Blender Portable & Mixeur de Fruits Rechargeable USB</h3>
-                    <div class="product-price">149 DH <span>249 DH</span></div>
-                    <button class="add-to-cart-btn" onclick="addToCart('Mini Blender Portable USB', 149)">
-                        <i data-lucide="shopping-cart" style="width: 18px; height: 18px;"></i> Ajouter au Panier
-                    </button>
-                </div>
-            </div>
-
         </div>
     </div>
 
-    <!-- Éléments Panier Latéral -->
     <div class="overlay" id="overlay" onclick="toggleCart(false)"></div>
-    
     <div class="cart-drawer" id="cart-drawer">
         <div class="cart-header">
             <h3>Mon Panier</h3>
             <button class="close-cart" onclick="toggleCart(false)">
-                <i data-lucide="x" style="width: 20px; height: 20px;"></i>
+                <i data-lucide="x" style="width: 18px; height: 18px;"></i>
             </button>
         </div>
         
-        <div class="cart-items" id="cart-items-container">
-            <!-- Rempli en temps réel -->
-        </div>
+        <div class="cart-items" id="cart-items-container"></div>
 
         <div class="cart-footer">
             <div class="cart-total">
@@ -488,17 +390,15 @@
                 <span id="cart-total-price">0 DH</span>
             </div>
             <button class="checkout-btn" onclick="sendToWhatsApp()">
-                <i data-lucide="message-square" style="width: 20px; height: 20px;"></i> Envoyer ma Commande via WhatsApp
+                <i data-lucide="message-square" style="width: 20px; height: 20px;"></i> Commander via WhatsApp
             </button>
         </div>
     </div>
 
     <script>
-        // Init des icônes
         lucide.createIcons();
-
         let cart = [];
-        const whatsappNumber = "212665290743"; // Ton numéro au format international
+        const whatsappNumber = "212665290743";
 
         function toggleCart(open) {
             const drawer = document.getElementById('cart-drawer');
@@ -520,7 +420,7 @@
                 cart.push({ name, price, quantity: 1 });
             }
             updateCartUI();
-            toggleCart(true); // Ouvre le panier instantanément pour montrer l'action
+            toggleCart(true);
         }
 
         function removeFromCart(name) {
@@ -539,9 +439,9 @@
 
             if (cart.length === 0) {
                 itemsContainer.innerHTML = `
-                    <div style="text-align:center; color:var(--text-gray); margin-top:40px;">
-                        <i data-lucide="shopping-bag" style="width: 48px; height: 48px; margin-bottom:10px; stroke: #ccc;"></i>
-                        <p>Votre panier est encore vide.</p>
+                    <div style="text-align:center; color:var(--text-gray); margin-top:50px;">
+                        <i data-lucide="shopping-bag" style="width: 48px; height: 48px; margin-bottom:12px; stroke: #ccc;"></i>
+                        <p>Votre panier est vide.</p>
                     </div>
                 `;
             }
@@ -567,25 +467,17 @@
 
             countSpan.innerText = totalItems;
             totalSpan.innerText = total + " DH";
-            
-            // Animation flash rapide du compteur du panier
-            countSpan.style.transform = "scale(1.3)";
-            setTimeout(() => countSpan.style.transform = "scale(1)", 200);
-
             lucide.createIcons();
         }
 
         function sendToWhatsApp() {
-            if (cart.length === 0) {
-                alert("Votre panier est vide !");
-                return;
-            }
+            if (cart.length === 0) return;
 
-            let message = "⚡ *NOUVELLE COMMANDE TEMU EXPRESS*\n";
+            let message = "⚡ *NOUVELLE COMMANDE - VENTILATEUR LED*\n";
             message += "=========================\n\n";
             let total = 0;
 
-            cart.forEach((item, index) => {
+            cart.forEach((item) => {
                 const subtotal = item.price * item.quantity;
                 total += subtotal;
                 message += `📦 *${item.name}*\n`;
@@ -594,20 +486,16 @@
             });
 
             message += "=========================\n";
-            message += `💰 *TOTAL À PAYER : ${total} DH*\n`;
-            message += "🚚 *Livraison : Gratuite*\n\n";
-            message += "Je souhaite confirmer ma commande. Voici mes coordonnées pour la livraison (à remplir) :\n";
+            message += `💰 *TOTAL A PAYER : ${total} DH*\n`;
+            message += "🚚 *Livraison : Gratuite (COD)*\n\n";
+            message += "Voici mes informations de livraison :\n";
             message += "• *Nom Complet :*\n";
             message += "• *Ville :*\n";
             message += "• *Adresse :*";
 
-            const urlEncodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${urlEncodedMessage}`;
-            
-            window.open(whatsappUrl, '_blank');
+            window.open(`https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(message)}`, '_blank');
         }
 
-        // Init initial des icônes de panier vide
         updateCartUI();
     </script>
 </body>
