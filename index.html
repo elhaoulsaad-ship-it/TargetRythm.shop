@@ -1,154 +1,614 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Remote Career Portal | USA</title>
+    <title>Boutique Flash - Commandes Express</title>
+    <!-- Lucide Icons pour des icônes épurées -->
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.321.0/dist/umd/lucide.min.js"></script>
     <style>
-        /* Arrière-plan avec dégradé moderne */
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        :root {
+            --primary: #ff4757;
+            --primary-hover: #ee3848;
+            --whatsapp: #25D366;
+            --whatsapp-hover: #20ba5a;
+            --dark: #1e2229;
+            --text-gray: #747d8c;
+            --light-bg: #f8f9fa;
+        }
+
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulseBadge {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* --- Header --- */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 25px;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
         }
 
-        .container {
-            background-color: white;
-            max-width: 500px;
-            width: 100%;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            text-align: center;
+        .logo {
+            font-weight: 800;
+            font-size: 24px;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--primary), #ff6b81);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        h1 {
-            color: #2d3436;
-            font-size: 28px;
-            margin-bottom: 10px;
+        .cart-icon-container {
+            position: relative;
+            cursor: pointer;
+            padding: 5px;
+            transition: transform 0.2s ease;
         }
 
-        .highlight {
-            color: #0984e3;
-            font-weight: bold;
+        .cart-icon-container:hover {
+            transform: scale(1.1);
         }
 
-        /* Boîte de détails colorée */
-        .info-box {
-            background: #f1f2f6;
-            border-left: 5px solid #0984e3;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 25px 0;
-            text-align: left;
-        }
-
-        .info-item {
-            margin: 10px 0;
-            font-size: 17px;
-            color: #2d3436;
-        }
-
-        /* Bouton "Work Now" stylisé */
-        .btn {
-            display: block;
-            background: linear-gradient(to right, #00b894, #55efc4);
+        .cart-count {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: var(--primary);
             color: white;
-            text-decoration: none;
-            padding: 20px;
-            border-radius: 50px;
-            font-size: 22px;
-            font-weight: bold;
-            text-transform: uppercase;
-            box-shadow: 0 4px 15px rgba(0, 184, 148, 0.4);
-            transition: transform 0.3s ease;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 184, 148, 0.6);
-        }
-
-        /* Section Commentaires / Témoignages */
-        .testimonials {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            text-align: left;
-        }
-
-        .testimonial-title {
-            font-weight: bold;
-            color: #636e72;
-            margin-bottom: 15px;
-            font-size: 14px;
-            text-transform: uppercase;
-        }
-
-        .comment {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            font-style: italic;
-            font-size: 14px;
-            color: #444;
-            border: 1px solid #efefef;
-        }
-
-        .author {
-            display: block;
-            margin-top: 5px;
-            font-weight: bold;
-            color: #0984e3;
-            font-style: normal;
-        }
-
-        .footer {
-            margin-top: 25px;
+            border-radius: 20px;
+            padding: 2px 7px;
             font-size: 11px;
-            color: #b2bec3;
+            font-weight: bold;
+            border: 2px solid white;
+            transition: all 0.3s ease;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background: linear-gradient(135deg, #2f3542, #1e2229);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            color: #a4b0be;
+            font-size: 16px;
+        }
+
+        .shipping-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 71, 87, 0.2);
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 71, 87, 0.3);
+            animation: pulseBadge 2s infinite ease-in-out;
+        }
+
+        /* --- Grille Produits --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px 20px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            border: 1px solid rgba(0,0,0,0.03);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            animation: fadeIn 0.6s ease-out both;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .product-image-box {
+            width: 100%;
+            height: 320px;
+            background-color: #f1f2f6;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-img {
+            transform: scale(1.06);
+        }
+
+        .product-info {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-title {
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 12px;
+            min-height: 50px;
+        }
+
+        .product-price {
+            font-size: 24px;
+            color: var(--primary);
+            font-weight: 800;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: baseline;
+            gap: 5px;
+        }
+
+        .product-price span {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-gray);
+            text-decoration: line-through;
+        }
+
+        .add-to-cart-btn {
+            background-color: var(--dark);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 15px;
+            transition: all 0.2s ease;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .add-to-cart-btn:active {
+            transform: translateY(0);
+        }
+
+        /* --- Panier Coulissant (Drawer) --- */
+        .cart-drawer {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 420px;
+            height: 100%;
+            background: white;
+            box-shadow: -10px 0 40px rgba(0,0,0,0.15);
+            z-index: 200;
+            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-drawer.open {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 25px;
+            border-bottom: 1px solid #f1f2f6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h3 {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .close-cart {
+            cursor: pointer;
+            background: #f1f2f6;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .close-cart:hover {
+            background: #e4e7eb;
+        }
+
+        .cart-items {
+            padding: 25px;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f2f6;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .cart-item-details h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-details span {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .remove-item {
+            color: #ff4757;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .remove-item:hover {
+            background: #ffe0e3;
+        }
+
+        .cart-footer {
+            padding: 25px;
+            border-top: 1px solid #f1f2f6;
+            background: #fbfbfc;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 19px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .checkout-btn {
+            background-color: var(--whatsapp);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            width: 100%;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.25);
+            transition: all 0.2s ease;
+        }
+
+        .checkout-btn:hover {
+            background-color: var(--whatsapp-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35);
+        }
+
+        /* --- Overlay Background --- */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
+            z-index: 150;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* --- Responsive Mobile --- */
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .hero {
+                padding: 35px 15px;
+            }
+            .hero h1 {
+                font-size: 26px;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Unlock Your <span class="highlight">Earning Potential</span></h1>
-    <p>Join our elite team of Virtual Assistants and Data Entry Specialists across the United States.</p>
-    
-    <div class="info-box">
-        <div class="info-item">📍 <b>Location:</b> Work From Home (USA)</div>
-        <div class="info-item">💰 <b>Salary:</b> $25 - $35 / Per Hour</div>
-        <div class="info-item">✅ <b>Requirements:</b> Basic Computer Skills</div>
-        <div class="info-item">📅 <b>Flexibility:</b> Full-time & Part-time</div>
+    <!-- Header -->
+    <header>
+        <div class="logo">TEMU EXPRESS</div>
+        <div class="cart-icon-container" onclick="toggleCart(true)">
+            <i data-lucide="shopping-bag" style="width: 26px; height: 26px;"></i>
+            <span class="cart-count" id="cart-count">0</span>
+        </div>
+    </header>
+
+    <!-- Section Hero Réassurance -->
+    <div class="hero">
+        <div class="shipping-badge">
+            <i data-lucide="truck" style="width: 16px; height: 16px;"></i> Livraison Gratuite Partout au Maroc
+        </div>
+        <h1>Offres Flash d'Été ! ☀️</h1>
+        <p>Commandez en 1 clic. Paiement 100% Sécurisé à la livraison via WhatsApp.</p>
     </div>
 
-    <a href="https://singingfiles.com/show.php?l=0&u=2499815&id=73805" class="btn">WORK NOW</a>
+    <!-- Grille des produits -->
+    <div class="container">
+        <div class="products-grid">
+            
+            <!-- Produit 1 (Ventilateur Blanc LED) -->
+            <div class="product-card" style="animation-delay: 0.1s;">
+                <div class="product-image-box">
+                    <img class="product-img" src="https://images.unsplash.com/photo-1622737133809-d95047b9e673?w=600" alt="Ventilateur LED">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Ventilateur de Poche Intelligent avec Affichage LED & Base</h3>
+                    <div class="product-price">129 DH <span>199 DH</span></div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Ventilateur Poche LED Intelligent', 129)">
+                        <i data-lucide="shopping-cart" style="width: 18px; height: 18px;"></i> Ajouter au Panier
+                    </button>
+                </div>
+            </div>
+
+            <!-- Produit 2 (Mini Refroidisseur Tactile) -->
+            <div class="product-card" style="animation-delay: 0.2s;">
+                <div class="product-image-box">
+                    <img class="product-img" src="https://images.unsplash.com/photo-1585336139118-89c153132666?w=600" alt="Refroidisseur Tactile">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Mini Cooling Fan - Rafraîchisseur d'Air Tactile Multi-Gears</h3>
+                    <div class="product-price">249 DH <span>399 DH</span></div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Mini Rafraîchisseur Air Tactile', 249)">
+                        <i data-lucide="shopping-cart" style="width: 18px; height: 18px;"></i> Ajouter au Panier
+                    </button>
+                </div>
+            </div>
+
+            <!-- Produit 3 (Blender Portable) -->
+            <div class="product-card" style="animation-delay: 0.3s;">
+                <div class="product-image-box">
+                    <img class="product-img" src="https://images.unsplash.com/photo-1578643463396-0997cb5328c1?w=600" alt="Blender USB">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Mini Blender Portable & Mixeur de Fruits Rechargeable USB</h3>
+                    <div class="product-price">149 DH <span>249 DH</span></div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Mini Blender Portable USB', 149)">
+                        <i data-lucide="shopping-cart" style="width: 18px; height: 18px;"></i> Ajouter au Panier
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Éléments Panier Latéral -->
+    <div class="overlay" id="overlay" onclick="toggleCart(false)"></div>
     
-    <div class="testimonials">
-        <div class="testimonial-title">Recent Comments:</div>
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <h3>Mon Panier</h3>
+            <button class="close-cart" onclick="toggleCart(false)">
+                <i data-lucide="x" style="width: 20px; height: 20px;"></i>
+            </button>
+        </div>
         
-        <div class="comment">
-            "I found my dream job here! The flexible hours are amazing. Highly recommend to anyone looking for extra income."
-            <span class="author">- Mark T., Florida</span>
+        <div class="cart-items" id="cart-items-container">
+            <!-- Rempli en temps réel -->
         </div>
 
-        <div class="comment">
-            "Great support team and fast weekly payments. Best remote opportunity I've found this year."
-            <span class="author">- Sarah J., Texas</span>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total :</span>
+                <span id="cart-total-price">0 DH</span>
+            </div>
+            <button class="checkout-btn" onclick="sendToWhatsApp()">
+                <i data-lucide="message-square" style="width: 20px; height: 20px;"></i> Envoyer ma Commande via WhatsApp
+            </button>
         </div>
     </div>
 
-    <div class="footer">
-        © 2026 Global Remote Solutions Inc. All Reserched. Verified Secure Portal.
-    </div>
-</div>
+    <script>
+        // Init des icônes
+        lucide.createIcons();
 
+        let cart = [];
+        const whatsappNumber = "212665290743"; // Ton numéro au format international
+
+        function toggleCart(open) {
+            const drawer = document.getElementById('cart-drawer');
+            const overlay = document.getElementById('overlay');
+            if (open) {
+                drawer.classList.add('open');
+                overlay.classList.add('open');
+            } else {
+                drawer.classList.remove('open');
+                overlay.classList.remove('open');
+            }
+        }
+
+        function addToCart(name, price) {
+            const existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ name, price, quantity: 1 });
+            }
+            updateCartUI();
+            toggleCart(true); // Ouvre le panier instantanément pour montrer l'action
+        }
+
+        function removeFromCart(name) {
+            cart = cart.filter(item => item.name !== name);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const itemsContainer = document.getElementById('cart-items-container');
+            const countSpan = document.getElementById('cart-count');
+            const totalSpan = document.getElementById('cart-total-price');
+            
+            itemsContainer.innerHTML = '';
+            let total = 0;
+            let totalItems = 0;
+
+            if (cart.length === 0) {
+                itemsContainer.innerHTML = `
+                    <div style="text-align:center; color:var(--text-gray); margin-top:40px;">
+                        <i data-lucide="shopping-bag" style="width: 48px; height: 48px; margin-bottom:10px; stroke: #ccc;"></i>
+                        <p>Votre panier est encore vide.</p>
+                    </div>
+                `;
+            }
+
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+                totalItems += item.quantity;
+
+                const itemElement = document.createElement('div');
+                itemElement.classList.add('cart-item');
+                itemElement.innerHTML = `
+                    <div class="cart-item-details">
+                        <h4>${item.name}</h4>
+                        <small style="color: var(--text-gray)">Quantité : ${item.quantity}</small><br>
+                        <span>${item.price * item.quantity} DH</span>
+                    </div>
+                    <button class="remove-item" onclick="removeFromCart('${item.name}')">
+                        <i data-lucide="trash-2" style="width:18px; height:18px;"></i>
+                    </button>
+                `;
+                itemsContainer.appendChild(itemElement);
+            });
+
+            countSpan.innerText = totalItems;
+            totalSpan.innerText = total + " DH";
+            
+            // Animation flash rapide du compteur du panier
+            countSpan.style.transform = "scale(1.3)";
+            setTimeout(() => countSpan.style.transform = "scale(1)", 200);
+
+            lucide.createIcons();
+        }
+
+        function sendToWhatsApp() {
+            if (cart.length === 0) {
+                alert("Votre panier est vide !");
+                return;
+            }
+
+            let message = "⚡ *NOUVELLE COMMANDE TEMU EXPRESS*\n";
+            message += "=========================\n\n";
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                const subtotal = item.price * item.quantity;
+                total += subtotal;
+                message += `📦 *${item.name}*\n`;
+                message += `   • Quantité : ${item.quantity}\n`;
+                message += `   • Prix : ${subtotal} DH\n\n`;
+            });
+
+            message += "=========================\n";
+            message += `💰 *TOTAL À PAYER : ${total} DH*\n`;
+            message += "🚚 *Livraison : Gratuite*\n\n";
+            message += "Je souhaite confirmer ma commande. Voici mes coordonnées pour la livraison (à remplir) :\n";
+            message += "• *Nom Complet :*\n";
+            message += "• *Ville :*\n";
+            message += "• *Adresse :*";
+
+            const urlEncodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${urlEncodedMessage}`;
+            
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Init initial des icônes de panier vide
+        updateCartUI();
+    </script>
 </body>
 </html>
